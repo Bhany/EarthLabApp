@@ -79,7 +79,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+                //attemptLogin();
+                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(i);
             }
         });
 
@@ -339,14 +341,11 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
 
 
-    public void startMain(View view){
+    /*public void startMain(View view){
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
-    }
+    }*/
 
 
 
 }
-
-
-
