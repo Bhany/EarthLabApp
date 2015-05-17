@@ -27,6 +27,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.parse.Parse;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +59,10 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // Enable Local Datastore.
+        Parse.enableLocalDatastore(this);
+        Parse.initialize(this, "Lb4nfUeRZk6IZjso6ODpZPcvJm957wtQP3J5ooHg", "TKCbtsVBVh7ekwEfPVhX4a52LfZFPZOMM7DlqBM9");
 
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
