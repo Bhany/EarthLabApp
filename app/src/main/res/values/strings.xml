@@ -4,8 +4,8 @@
 
     <string name="mainPageTitle">Welcome To EarthLab</string>
     <string name="title_QR">QR Reader</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
+    <string name="title_About">About</string>
+    <string name="title_Dashboard">Dashboard</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

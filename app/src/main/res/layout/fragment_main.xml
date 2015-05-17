@@ -9,4 +9,25 @@
     <TextView android:id="@+id/section_label" android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="The goal of the application is to expose students to technology and at the same time provide them with an interactive application where they can learn about the wildlife and nature  at Earth Lab. The application will use a QR reader to scan QR codes that will be placed around Earth Lab on exhibitions and wildlife."
+        android:id="@+id/textView2"
+        android:layout_below="@+id/section_label"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:typeface="serif"
+        android:textSize="20dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:maxHeight="50dp"
+        android:maxWidth="50dp"
+        android:src="@drawable/qr_code"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

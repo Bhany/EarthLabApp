@@ -113,8 +113,8 @@ public class NavigationDrawerFragment extends Fragment {
                 android.R.id.text1,
                 new String[]{
                         getString(R.string.title_QR),
-                        getString(R.string.title_section2),
-                        getString(R.string.title_section3),
+                        getString(R.string.title_About),
+                        getString(R.string.title_Dashboard),
                 }));
 
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
@@ -126,7 +126,14 @@ public class NavigationDrawerFragment extends Fragment {
         IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
 
         if (scanResult != null) {
-         // handle scan result
+            // handle scan result
+            String scanContent = scanResult.getContents();
+            String scanFormat = scanResult.getFormatName();
+            System.out.println("SCANCONTENT: " + scanContent + "\nSCANFORMAT: " + scanFormat);
+        }
+        else{
+            Toast toast = Toast.makeText(getActivity(), "No scan data received!", Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 
