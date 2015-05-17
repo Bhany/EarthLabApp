@@ -1,5 +1,6 @@
 package com.example.bhany.earthlab;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -19,8 +20,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -95,6 +99,12 @@ public class NavigationDrawerFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectItem(position);
+                // THIS WILL REGISTER WHICH BUTTON IS CLICKED
+                if(position == 0){
+                    //CODE FROM ZXING
+                    IntentIntegrator integrator =  new IntentIntegrator(getActivity());
+                    integrator.initiateScan();
+                }
             }
         });
         mDrawerListView.setAdapter(new ArrayAdapter<String>(
@@ -106,9 +116,28 @@ public class NavigationDrawerFragment extends Fragment {
                         getString(R.string.title_About),
                         getString(R.string.title_Dashboard),
                 }));
+
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
     }
+
+    /* TODO figure out how to handle intentresult URL to open webview */
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+
+        if (scanResult != null) {
+            // handle scan result
+            String scanContent = scanResult.getContents();
+            String scanFormat = scanResult.getFormatName();
+            System.out.println("SCANCONTENT: " + scanContent + "\nSCANFORMAT: " + scanFormat);
+        }
+        else{
+            Toast toast = Toast.makeText(getActivity(), "No scan data received!", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
+
+
 
     public boolean isDrawerOpen() {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
