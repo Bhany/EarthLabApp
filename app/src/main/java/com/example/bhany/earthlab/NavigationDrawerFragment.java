@@ -1,6 +1,7 @@
 package com.example.bhany.earthlab;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -12,6 +13,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,6 +25,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.google.zxing.client.android.Intents;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -102,8 +106,19 @@ public class NavigationDrawerFragment extends Fragment {
                 // THIS WILL REGISTER WHICH BUTTON IS CLICKED
                 if(position == 0){
                     //CODE FROM ZXING
+                    Log.d("ADebugTag", "before scan");
+                    IntentIntegrator integrator = new IntentIntegrator(getActivity());
+                    Intent intent = integrator.createScanIntent();
+                    startActivityForResult(intent, IntentIntegrator.REQUEST_CODE);
+                    Log.d("ADebugTag", "after scan");
+
+
+                    /*
+                    Log.d("ADebugTag", "before scan");
                     IntentIntegrator integrator =  new IntentIntegrator(getActivity());
                     integrator.initiateScan();
+                    Log.d("ADebugTag", "after scan");
+                    */
                 }
             }
         });
@@ -122,16 +137,19 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     /* TODO figure out how to handle intentresult URL to open webview */
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        Log.d("ADebugTag","in onActivityResult");
         IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
-
         if (scanResult != null) {
             // handle scan result
-            String scanContent = scanResult.getContents();
-            String scanFormat = scanResult.getFormatName();
-            System.out.println("SCANCONTENT: " + scanContent + "\nSCANFORMAT: " + scanFormat);
+            Intent myIntent1 = new Intent(Intent.ACTION_VIEW, Uri.parse(scanResult.getContents()));
+            startActivity(myIntent1);
+            Log.d("ADebugTag", "SCANCONTENT: ");
+
         }
         else{
+            Log.d("ADebugTag","ELSE");
             Toast toast = Toast.makeText(getActivity(), "No scan data received!", Toast.LENGTH_SHORT);
             toast.show();
         }
